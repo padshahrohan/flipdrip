@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ContractService } from '../contract.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,10 @@ export class LoginComponent {
 
   login() {
     console.log(this.loginForm.value);
-    this.router.navigate(['buyer']);
+
+    //API call to match username and password and get user metadata
+    this.router.navigate(['admin-landing']);
+    
   }
 
 }

@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "config": "ts-node ./scripts/setenv.ts",
+    "start": "npm run config && ng serve",
+    "build": "npm run config && ng build",
+    "watch": "npm run config && ng build --watch --configuration development",
+    "test": "npm run config && ng test"
   },
   "private": true,
   "dependencies": {
@@ -20,9 +21,11 @@
     "@angular/router": "^15.2.0",
     "@tailwindcss/forms": "^0.5.4",
     "chai": "^4.3.7",
+    "dotenv": "^16.3.1",
     "ethers": "^5.7.2",
     "hardhat": "^2.17.1",
     "rxjs": "~7.8.0",
+    "ts-node": "^10.9.1",
     "tslib": "^2.3.0",
     "web3": "^4.1.0",
     "zone.js": "~0.12.0"

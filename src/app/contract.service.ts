@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import Web3 from "web3";
+import { Observable, Subject } from 'rxjs';
+import { ethers } from 'ethers';
+import FlipKart from 'src/assets/Flipdrip.json';
+import { environment } from 'src/environments/environment';
 
 declare global {
   interface Window {
@@ -12,23 +15,43 @@ declare global {
   providedIn: 'root'
 })
 export class ContractService {
-  web3: any;
+  private provider: ethers.providers.Web3Provider;
 
-  async connectWallet() {
-    if (typeof window.ethereum !== 'undefined') {
-      // Modern dapp browsers
-      this.web3 = new Web3(window.ethereum);
-      try {
-        await window.ethereum.enable(); // Request account access
-      } catch (error) {
-        console.error('User denied account access');
-      }
-    } else if (typeof window.web3 !== 'undefined') {
-      // Legacy dapp browsers
-      this.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      alert('No web3 provider detected!! Install Metamask');
+  walletAddress: Subject<string> = new Subject<string>();
+  walletAddress$ = this.walletAddress.asObservable();
+
+  async transfer(walletAddress: string, amount: string) {
+    try {
+      const amountInEther = ethers.utils.parseUnits(amount, 'ether');
+      const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
+      return await contract['transfer'](walletAddress, amountInEther);
+      console.log('Transfer successful');
+    } catch (error) {
+      console.error('Transfer Error:', error);
     }
   }
 
+  async connectWallet() {
+    try {
+      // Check if MetaMask is available
+      if (typeof window.ethereum !== 'undefined') {
+        this.provider = new ethers.providers.Web3Provider(window.ethereum);
+
+        // Request access to accounts
+        const accounts = await this.provider.send('eth_requestAccounts', []);
+
+        if (accounts.length > 0) {
+          this.walletAddress.next(accounts[0]);
+        } else {
+          console.log('No accounts found');
+          
+        }
+      } else {
+        console.log('MetaMask not found');
+      }
+    } catch (error) {
+      console.error('Error connecting to wallet:', error);
+    }
+  }
 }
+
