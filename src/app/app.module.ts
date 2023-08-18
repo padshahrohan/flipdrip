@@ -9,6 +9,7 @@ import { BuyerComponent } from './buyer/buyer.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { AdminLandingComponent } from './admin-landing/admin-landing.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AdminLandingComponent } from './admin-landing/admin-landing.component';
     BuyerComponent,
     MenuComponent,
     ProductListComponent,
-    AdminLandingComponent
+    AdminLandingComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
