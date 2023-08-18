@@ -20,7 +20,7 @@ export class LoginComponent {
 
   login() {
     console.log(this.loginForm.value);
-    this.router.navigate(['buyer']);
+    this.router.navigate(['admin-landing']);
   }
 
 }

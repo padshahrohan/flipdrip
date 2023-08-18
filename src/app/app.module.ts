@@ -6,12 +6,18 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BuyerComponent } from './buyer/buyer.component';
+import { MenuComponent } from './menu/menu.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { AdminLandingComponent } from './admin-landing/admin-landing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    BuyerComponent
+    BuyerComponent,
+    MenuComponent,
+    ProductListComponent,
+    AdminLandingComponent,
   ],
   imports: [
     BrowserModule,
