@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import Web3 from "web3";
+import { ethers } from 'ethers';
+import FlipKart from 'src/assets/Flipdrip.json';
+import { environment } from 'src/environments/environment';
 
 declare global {
   interface Window {
@@ -13,27 +15,42 @@ declare global {
   providedIn: 'root'
 })
 export class ContractService {
-  web3: any;
+  private provider: ethers.providers.Web3Provider;
 
   walletAddress: Subject<string> = new Subject<string>();
   walletAddress$ = this.walletAddress.asObservable();
 
+  async transfer(walletAddress: string, amount: string) {
+    try {
+      const amountInEther = ethers.utils.parseUnits(amount, 'ether');
+      const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
+      return await contract['transfer'](walletAddress, amountInEther);
+      console.log('Transfer successful');
+    } catch (error) {
+      console.error('Transfer Error:', error);
+    }
+  }
+
   async connectWallet() {
-    if (typeof window.ethereum !== 'undefined') {
-      const web3 = new Web3(window.ethereum);
-      
-      // Request access to the user's accounts
-      window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts: string[]) => {
-        const selectedAccount = accounts[0];
-        
-        console.log('Connected to MetaMask with address:', selectedAccount);
-        this.walletAddress.next(selectedAccount);
-      }).catch((error: any) => {
-        console.error('Error connecting to MetaMask:', error);
-      });
-    } else {
-      this.walletAddress.next('error');
-      console.error('MetaMask not found.');
+    try {
+      // Check if MetaMask is available
+      if (typeof window.ethereum !== 'undefined') {
+        this.provider = new ethers.providers.Web3Provider(window.ethereum);
+
+        // Request access to accounts
+        const accounts = await this.provider.send('eth_requestAccounts', []);
+
+        if (accounts.length > 0) {
+          this.walletAddress.next(accounts[0]);
+        } else {
+          console.log('No accounts found');
+          
+        }
+      } else {
+        console.log('MetaMask not found');
+      }
+    } catch (error) {
+      console.error('Error connecting to wallet:', error);
     }
   }
 }

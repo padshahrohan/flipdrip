@@ -21,7 +21,7 @@
     "useDefineForClassFields": false,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "noPropertyAccessFromIndexSignature": false,
+    "strictPropertyInitialization": false,
     "lib": [
       "ES2022",
       "dom"
