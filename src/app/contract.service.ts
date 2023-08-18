@@ -20,15 +20,20 @@ export class ContractService {
   walletAddress: Subject<string> = new Subject<string>();
   walletAddress$ = this.walletAddress.asObservable();
 
-  async transfer(walletAddress: string, amount: string) {
-    try {
-      const amountInEther = ethers.utils.parseUnits(amount, 'ether');
-      const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
-      return await contract['transfer'](walletAddress, amountInEther);
-      console.log('Transfer successful');
-    } catch (error) {
-      console.error('Transfer Error:', error);
-    }
+  async transfer(walletAddress: string, amount: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      try {
+        const amountInEther = ethers.utils.parseUnits(amount, 'ether');
+        const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
+        contract['transfer'](walletAddress, amountInEther);
+        resolve(true);
+        console.log('Transfer successful');
+      } catch (error) {
+        resolve(false);
+        console.error('Transfer Error:', error);
+      }
+    });
+    
   }
 
   async connectWallet() {
