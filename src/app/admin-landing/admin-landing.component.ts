@@ -10,8 +10,8 @@ import flipdripContractAbi from 'src/assets/Flipdrip.json';
 })
 export class AdminLandingComponent implements OnInit {
   records = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', walletAddress : '0x4086c68ddb355B475331e2E9e8C961a7fA002C72' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', walletAddress: '0xE48bDc73930dCDA973D10a9262418A93DA5b7e1F' },
+    { id: 1, name: 'John Doe', email: 'john@example.com', walletAddress : '0x7c2714F9131b494BfaA1318aBFB8BbA93B9270F9' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', walletAddress: '0x36c03585b6Fa5EA59b56DEb2401Df342ff7b6e04' },
     // Add more records as needed
   ];
 
@@ -25,7 +25,7 @@ export class AdminLandingComponent implements OnInit {
 
   async doTransaction(record: any) {
     const address = record.walletAddress;
-    const result = await this.contractService.transfer(record.walletAddress, '1');
+    const result = await this.contractService.transfer(record.walletAddress, '5000');
 
     if (result) {
       //http call to delete the entry from DB
