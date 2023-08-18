@@ -17,7 +17,7 @@ import { AdminLandingComponent } from './admin-landing/admin-landing.component';
     BuyerComponent,
     MenuComponent,
     ProductListComponent,
-    AdminLandingComponent,
+    AdminLandingComponent
   ],
   imports: [
     BrowserModule,

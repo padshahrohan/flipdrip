@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import Web3 from "web3";
 
 declare global {
@@ -14,21 +15,26 @@ declare global {
 export class ContractService {
   web3: any;
 
+  walletAddress: Subject<string> = new Subject<string>();
+  walletAddress$ = this.walletAddress.asObservable();
+
   async connectWallet() {
     if (typeof window.ethereum !== 'undefined') {
-      // Modern dapp browsers
-      this.web3 = new Web3(window.ethereum);
-      try {
-        await window.ethereum.enable(); // Request account access
-      } catch (error) {
-        console.error('User denied account access');
-      }
-    } else if (typeof window.web3 !== 'undefined') {
-      // Legacy dapp browsers
-      this.web3 = new Web3(window.web3.currentProvider);
+      const web3 = new Web3(window.ethereum);
+      
+      // Request access to the user's accounts
+      window.ethereum.request({ method: 'eth_requestAccounts' }).then((accounts: string[]) => {
+        const selectedAccount = accounts[0];
+        
+        console.log('Connected to MetaMask with address:', selectedAccount);
+        this.walletAddress.next(selectedAccount);
+      }).catch((error: any) => {
+        console.error('Error connecting to MetaMask:', error);
+      });
     } else {
-      alert('No web3 provider detected!! Install Metamask');
+      this.walletAddress.next('error');
+      console.error('MetaMask not found.');
     }
   }
-
 }
+
