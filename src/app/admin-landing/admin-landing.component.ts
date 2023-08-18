@@ -25,6 +25,12 @@ export class AdminLandingComponent implements OnInit {
 
   async doTransaction(record: any) {
     const address = record.walletAddress;
-    await this.contractService.transfer(record.walletAddress, '1');
+    const result = await this.contractService.transfer(record.walletAddress, '1');
+
+    if (result) {
+      //http call to delete the entry from DB
+    } else {
+      alert(' Transaction Unsuccessful !!');
+    }
   }
 }
