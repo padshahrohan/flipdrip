@@ -11,10 +11,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users" class="hover:bg-gray-50">
-            <td class="border px-4 py-2">{{ user.userId }}</td>
-            <td class="border px-4 py-2">{{ user.rewardPoints }}</td>
+            <td class="border px-4 py-2">{{ user.UserName }}</td>
+            <td class="border px-4 py-2">{{ user.Coins }}</td>
             <td class="border px-4 py-2 text-right">
-              <button (click)="approveRewardPoints(user.userId, user.rewardPoints)" class="bg-green-500 text-white px-3 py-2 rounded">Approve</button>
+              <button (click)="approveRewardPoints(user.WalletAddress, user.Coins)" class="bg-green-500 text-white px-3 py-2 rounded">Approve</button>
             </td>
           </tr>
         </tbody>

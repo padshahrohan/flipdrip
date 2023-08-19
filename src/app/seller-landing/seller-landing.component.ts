@@ -21,18 +21,23 @@ export class SellerLandingComponent {
   }
 
   fetchProducts() {
-    const sellerId = 3; // Replace with the actual seller ID
+      const sellerId = 3; // Replace with the actual seller ID
 
-    // Make an HTTP GET request to fetch products by seller ID
-    this.http.get<any>(`http://172.17.86.148:3000/product/list?SellerId=${sellerId}`).subscribe(
-      (response) => {
-        this.products = response.result; // Assign fetched products to the array
-      },
-      (error) => {
-        console.error('Error fetching products:', error);
-      }
-    );
-  }
+      // Make an HTTP GET request to fetch products by seller ID
+      this.http.get<any>(`http://172.17.86.148:3000/product/list?SellerId=${sellerId}`).subscribe(
+        (response) => {
+          this.products = response.result; // Assign fetched products to the array
+        },
+        (error) => {
+          console.error('Error fetching products:', error);
+        }
+      );
+    }
+    onApproveRewardPointsClick() {
+      // Make your API call here to fetch user details
+      // Once the data is fetched, navigate to the approve-reward-points route
+      this.router.navigate(['/approve-reward-points']);
+    }
 
    
   //   const provider = new ethers.providers.Web3Provider(window.ethereum);
