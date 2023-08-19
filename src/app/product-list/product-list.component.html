@@ -1,12 +1,16 @@
 <div class="container mx-auto p-4 justify-center">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      <div *ngFor="let product of products" class="bg-white shadow-md rounded-md p-4">
-        <img [src]="product.image" alt="{{ product.name }}" class="w-full h-32 object-contain mb-2">
-        <h3 class="text-lg font-semibold">{{ product.name }}</h3>
-        <p class="text-gray-600">{{ product.description }}</p>
-        <p class="text-lg font-semibold text-gray-800 mt-2">{{ product.price }} INR</p>
-        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+      <div *ngFor="let product of products" class="bg-white shadow-md rounded-md p-4 text-center">
+        <h2 class="text-lg font-bold">Name: {{ product.ProductName }}</h2>
+        <p class="text-gray-600">Description: {{ product.ProductDescription }}</p>
+        <div class="text-lg font-semibold text-gray-800 mt-2">
+          Price: {{ product.ProductPrice }} INR OR {{ product.Tokens }} FD
+        </div>
+        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">
           Buy
+        </button>
+        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+          Redeem
         </button>
       </div>
     </div>

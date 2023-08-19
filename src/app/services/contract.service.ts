@@ -37,6 +37,10 @@ export class ContractService {
     
   }
 
+  async getBalance(address: string) {
+    return this.provider.getBalance(address);
+  }
+
   async getTransactionHistory (address: any) {
     console.log(address);
     

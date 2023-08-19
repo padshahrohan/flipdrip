@@ -12,7 +12,6 @@ export class BuyerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.contractService.connectWallet();
    
   }
 

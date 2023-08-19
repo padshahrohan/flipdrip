@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service';
+import { Product } from 'src/model/product.model';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent {
-  products = [
-    {
-      name: 'Cricket BAT',
-      description: 'GM BAT',
-      price: 1999,
-      image: 'assets/images/one.jpg'
-    },
-    {
-      name: 'Cricket BAT',
-      description: 'Kookaburra BAT',
-      price: 2999,
-      image: 'assets/images/two.jpg'
-    },
-    // Add more products as needed
-  ];
+export class ProductListComponent implements OnInit {
+  products: Product[] = [];
+
+  constructor(private productService: ProductService) {
+
+  }
+
+  ngOnInit(): void {
+
+    this.productService.getAllProducts().subscribe((resp) => {
+      this.products = resp.result ? resp.result : [];
+    })
+    
+  }
 }
