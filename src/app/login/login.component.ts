@@ -41,13 +41,19 @@ export class LoginComponent implements OnInit {
     }
     
     this.userService.login(body).subscribe((resp: User) => {
-      if (resp.Role === 'Buyer') {
-        this.router.navigate(['buyer-landing']);  
-      } else if (resp.Role === 'Seller') {
+      console.log(resp.Role);
+      
+      if (resp.Role === 'admin') {
+        this.router.navigate(['admin-landing']);  
+      } else if (resp.Role === 'buyer') {
+        this.router.navigate(['buyer-landing']);
+      } else if (resp.Role === 'seller'){
         this.router.navigate(['seller-landing']);
       } else {
-        this.router.navigate(['admin-landing']);
+        alert('Some error occurred ! Try after some time');
       }
+    }, (err) => {
+
     });
     
   }

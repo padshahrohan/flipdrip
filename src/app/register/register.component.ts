@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ContractService } from '../services/contract.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
     acceptTerms: new FormControl(false, Validators.requiredTrue)
   });
 
-  constructor(private router: Router, private contractService: ContractService, private http: HttpClient) {    
+  constructor(private router: Router, private contractService: ContractService
+    , private http: HttpClient, private userService: UserService) {    
     
   }
 
@@ -46,7 +48,7 @@ export class RegisterComponent implements OnInit {
     }
 
     console.log(body);
-    this.http.post("http://172.17.87.26:3000/user/register", body).subscribe((resp) => {
+    this.userService.register(body).subscribe((resp) => {
         this.router.navigate(['']);
     })
     

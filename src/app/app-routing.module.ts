@@ -9,7 +9,7 @@ import { SellerLandingComponent } from './seller-landing/seller-landing.componen
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
-  {path: 'buyer', component: BuyerComponent },
+  {path: 'buyer-landing', component: BuyerComponent },
   {path: 'register/buyer', component: RegisterComponent},
   {path: 'register/seller', component: RegisterComponent},
   {path: 'seller-landing', component: SellerLandingComponent },
