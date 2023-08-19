@@ -8,11 +8,22 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
+
+  isModalOpen = false;
+
   constructor(private router: Router) {
 
   }
 
   login() {
     this.router.navigate(['']);
+  }
+
+  openModal(): void {
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
   }
 }

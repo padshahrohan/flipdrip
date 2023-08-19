@@ -21,10 +21,10 @@
         <div class="mb-2">
           <label class="inline-flex items-center">
             <input type="checkbox" class="mr-2">
-            <span class="text-sm">I agree to the <a class="text-blue-500">Terms and Conditions</a></span>
+            <span class="text-sm">I agree to the <a (click)="openModal()" class="text-blue-500 cursor-pointer">Terms and Conditions</a></span>
           </label>
         </div>
-        <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           Register
         </button>
       </form>
@@ -34,3 +34,4 @@
     </div>
   </div>
   
+  <app-rules-and-regulation *ngIf="isModalOpen" (closeModalEvent)="closeModal()"></app-rules-and-regulation>

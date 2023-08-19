@@ -28,7 +28,13 @@
         </div>
       </form>
       <p class="mt-4 text-center text-sm text-gray-600">
-        Don't have an account? <a class="text-blue-500 cursor-pointer" (click)="register()">Register</a>
+        Don't have an account? 
       </p>
+      
+      <p class="mt-4 text-center text-sm text-gray-600">
+        <a class="text-blue-500 cursor-pointer mr-2" (click)="register('buyer')">Register as Buyer</a>
+        <a class="text-blue-500 cursor-pointer" (click)="register('seller')">Register as Seller</a>
+      </p>
+      
     </div>
   </div>

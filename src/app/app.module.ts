@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { AdminLandingComponent } from './admin-landing/admin-landing.component';
 import { RegisterComponent } from './register/register.component';
+import { RulesAndRegulationComponent } from './rules-and-regulation/rules-and-regulation.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RegisterComponent } from './register/register.component';
     MenuComponent,
     ProductListComponent,
     AdminLandingComponent,
-    RegisterComponent
+    RegisterComponent,
+    RulesAndRegulationComponent
   ],
   imports: [
     BrowserModule,

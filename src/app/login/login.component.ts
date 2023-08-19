@@ -27,7 +27,7 @@ export class LoginComponent {
     
   }
 
-  register() {
+  register(user: string) {
     this.router.navigate(['register']);
   }
 
