@@ -28,7 +28,12 @@ export class LoginComponent {
   }
 
   register(user: string) {
-    this.router.navigate(['register']);
+    if (user === 'buyer') {
+      this.router.navigate(['register/buyer']);
+    } else {
+      this.router.navigate(['register/seller']);
+    }
+    
   }
 
 }

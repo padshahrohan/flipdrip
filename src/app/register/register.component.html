@@ -5,26 +5,35 @@
         <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Register your account</h2>
     </div>
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6">
+      <form class="space-y-6" [formGroup]="registerForm">
         <div class="mb-2">
           <label for="username" class="block font-medium mb-1">Username</label>
-          <input type="text" id="username" class="w-full p-2 border rounded-md">
+          <input type="text" required id="username" formControlName="username" class="w-full p-2 border rounded-md">
         </div>
         <div class="mb-2">
           <label for="email" class="block font-medium mb-1">Email</label>
-          <input type="email" id="email" class="w-full p-2 border rounded-md">
+          <input type="email" required id="email" formControlName="email"  class="w-full p-2 border rounded-md">
         </div>
         <div class="mb-2">
           <label for="password" class="block font-medium mb-1">Password</label>
-          <input type="password" id="password" class="w-full p-2 border rounded-md">
+          <input type="password" required id="password" formControlName="password"  class="w-full p-2 border rounded-md">
         </div>
-        <div class="mb-2">
+        <div class="mb-2" (click)="openModal()">
           <label class="inline-flex items-center">
-            <input type="checkbox" class="mr-2">
-            <span class="text-sm">I agree to the <a (click)="openModal()" class="text-blue-500 cursor-pointer">Terms and Conditions</a></span>
+            <input type="checkbox" class="mr-2" formControlName="acceptTerms" (change)="agreeTerms()">
+            <span class="text-sm"> <a  class="text-blue-500 cursor-pointer"> I agree to the Terms and Conditions</a></span>
           </label>
         </div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        <div class="mb-2">
+          <div *ngIf="!walletAddress" class="text-red-700 rounded" role="alert">
+            <p class="font-bold">Wallet Not Connected</p>
+          </div>
+          <div *ngIf="walletAddress" class="text-black-700 rounded" role="alert">
+            <p class="font-bold">Wallet Address : {{walletAddress}}</p>
+          </div>
+        </div>
+        
+        <button [disabled]="registerForm.invalid || !walletAddress" (click)="register()" type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
           Register
         </button>
       </form>
