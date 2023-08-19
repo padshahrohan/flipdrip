@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContractService } from '../contract.service';
+import { ContractService } from '../services/contract.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -15,13 +17,13 @@ export class RegisterComponent implements OnInit {
   isBuyer = false;
 
   registerForm = new FormGroup({
-    username: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     acceptTerms: new FormControl(false, Validators.requiredTrue)
   });
 
-  constructor(private router: Router, private contractService: ContractService) {    
+  constructor(private router: Router, private contractService: ContractService
+    , private http: HttpClient, private userService: UserService) {    
     
   }
 
@@ -39,15 +41,17 @@ export class RegisterComponent implements OnInit {
 
   register() {
     let body = {
-      username : this.registerForm.value.username,
-      email : this.registerForm.value.email,
-      password : this.registerForm.value.password,
-      walletAddress : this.walletAddress,
-      role : this.isBuyer ? 'buyer' : 'seller'
+      UserName : this.registerForm.value.email,
+      UserPassword : this.registerForm.value.password,
+      WalletAddress : this.walletAddress,
+      Role : this.isBuyer ? 'buyer' : 'seller'
     }
 
     console.log(body);
-    this.router.navigate(['']);
+    this.userService.register(body).subscribe((resp) => {
+        this.router.navigate(['']);
+    })
+    
   }
 
   login() {

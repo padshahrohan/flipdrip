@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ContractService } from '../contract.service';
+import { ContractService } from '../services/contract.service';
 import { environment } from 'src/environments/environment';
 import flipdripContractAbi from 'src/assets/Flipdrip.json';
+import { HttpClient } from '@angular/common/http';
+import { UserService } from '../services/user.service';
+import { User } from 'src/model/user.model';
 
 @Component({
   selector: 'app-admin-landing',
@@ -9,26 +12,28 @@ import flipdripContractAbi from 'src/assets/Flipdrip.json';
   styleUrls: ['./admin-landing.component.css']
 })
 export class AdminLandingComponent implements OnInit {
-  records = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', walletAddress : '0x7c2714F9131b494BfaA1318aBFB8BbA93B9270F9' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', walletAddress: '0x36c03585b6Fa5EA59b56DEb2401Df342ff7b6e04' },
-    // Add more records as needed
-  ];
+  records: User[] = [];
 
-  constructor(private contractService: ContractService) {
+  constructor(private contractService: ContractService, private http: HttpClient, private userService: UserService) {
     
   }
 
-  ngOnInit(): void {
-    this.contractService.connectWallet();
+  async ngOnInit() {
+    await this.contractService.connectWallet();
+    this.userService.getApprovalListOfSellers().subscribe((resp) => {
+      this.records = resp.result ? resp.result : [];
+    });
   }
 
-  async doTransaction(record: any) {
-    const address = record.walletAddress;
-    const result = await this.contractService.transfer(record.walletAddress, '5000');
+  async doTransaction(record: User) {
+    const result = await this.contractService.transfer(record.WalletAddress, '5000');
 
     if (result) {
-      //http call to delete the entry from DB
+      this.userService.approveSellerTokens(record.UserID).subscribe(() => {
+        this.userService.getApprovalListOfSellers().subscribe((resp) => {
+          this.records = resp.result ? resp.result : [];
+        })
+      })
     } else {
       alert(' Transaction Unsuccessful !!');
     }

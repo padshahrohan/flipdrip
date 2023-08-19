@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { ethers } from 'ethers';
 import { environment } from 'src/environments/environment';
 import flipkartAbi from 'src/assets/Flipdrip.json'
+import { UserService } from '../services/user.service';
+import { User } from 'src/model/user.model';
 
 @Component({
   selector: 'app-seller-landing',
@@ -12,11 +14,12 @@ import flipkartAbi from 'src/assets/Flipdrip.json'
 export class SellerLandingComponent {
   products: any[] = []; // Array to store fetched products
   showAddProductForm: boolean = false;
+  currentUser: User;
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.fetchProducts();
+    
   }
 
   fetchProducts() {

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContractService } from '../contract.service';
+import { ContractService } from '../services/contract.service';
+import { UserService } from '../services/user.service';
+import { User } from 'src/model/user.model';
 
 @Component({
   selector: 'app-menu',
@@ -9,23 +11,17 @@ import { ContractService } from '../contract.service';
 })
 export class MenuComponent implements OnInit {
   isDropdownOpen = false;
+  
+  currentUser: User;
 
   walletAddrress: string = "";
   
-  constructor(private router: Router, private contractService: ContractService) {
+  constructor(private router: Router , private userService: UserService) {
 
   }
 
   ngOnInit(): void {  
-    
-    this.contractService.walletAddress$.subscribe((walletAddress) => {
-      this.walletAddrress = walletAddress;
-      
-      if (this.walletAddrress === 'error') {
-        alert('Connect to metamask');
-      }
-      
-    });
+    this.currentUser = this.userService.getCurrentUser();
   }
 
 
@@ -35,5 +31,21 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.router.navigate(['']);
+  }
+
+  showTransactionHistory() {
+    this.router.navigate(['transaction-history']);
+  }
+
+  goToHome(role: string | undefined) {
+    if (role === 'admin') {
+      this.router.navigate(['admin-landing']);  
+    } else if (role === 'buyer') {
+      this.router.navigate(['buyer-landing']);
+    } else if (role === 'seller'){
+      this.router.navigate(['seller-landing']);
+    } else {
+      alert('Some error occurred ! Try after some time');
+    }
   }
 }
