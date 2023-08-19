@@ -15,6 +15,7 @@ import { SellerLandingComponent } from './seller-landing/seller-landing.componen
 import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
 import { AddProductFormComponent } from './add-product-form/add-product-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BuyerLandingComponent } from './buyer-landing/buyer-landing.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     RulesAndRegulationComponent,
     SellerLandingComponent,
     SellerAddProductComponent,
-    AddProductFormComponent
+    AddProductFormComponent,
+    BuyerLandingComponent
   ],
   imports: [
     BrowserModule,

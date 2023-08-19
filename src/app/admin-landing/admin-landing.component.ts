@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ContractService } from '../contract.service';
+import { ContractService } from '../services/contract.service';
 import { environment } from 'src/environments/environment';
 import flipdripContractAbi from 'src/assets/Flipdrip.json';
 

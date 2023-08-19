@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ContractService } from '../contract.service';
+
+import { HttpClient } from '@angular/common/http';
+import { User } from 'src/model/user.model';
+import { ContractService } from '../services/contract.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +21,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl(''),
   });
 
-  constructor(private router: Router, private contractService: ContractService) {
+  constructor(private router: Router, private contractService: ContractService
+    , private http: HttpClient, private userService: UserService) {
 
   }
 
@@ -29,9 +34,21 @@ export class LoginComponent implements OnInit {
 
   async login() {
     console.log(this.loginForm.value);
+    let body = {
+      UserName: this.loginForm.value.email,
+      UserPassword: this.loginForm.value.password,
+      WalletAddress: this.walletAddress,
+    }
     
-    //API call to match username and password and get user metadata
-    this.router.navigate(['seller-landing']);
+    this.userService.login(body).subscribe((resp: User) => {
+      if (resp.Role === 'Buyer') {
+        this.router.navigate(['buyer-landing']);  
+      } else if (resp.Role === 'Seller') {
+        this.router.navigate(['seller-landing']);
+      } else {
+        this.router.navigate(['admin-landing']);
+      }
+    });
     
   }
 

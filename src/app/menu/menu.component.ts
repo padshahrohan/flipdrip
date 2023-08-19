@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ContractService } from '../contract.service';
+import { ContractService } from '../services/contract.service';
 
 @Component({
   selector: 'app-menu',
