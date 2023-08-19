@@ -15,6 +15,7 @@ import { SellerLandingComponent } from './seller-landing/seller-landing.componen
 import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
 import { AddProductFormComponent } from './add-product-form/add-product-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ApproveRewardPointsComponent } from './approve-reward-points/approve-reward-points.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     RulesAndRegulationComponent,
     SellerLandingComponent,
     SellerAddProductComponent,
-    AddProductFormComponent
+    AddProductFormComponent,
+    ApproveRewardPointsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<app-menu></app-menu>
+<div class="mt-8">
+    <h2 class="text-2xl font-semibold mb-4">Transactions Pending Approval: </h2>
+    <table class="table-auto w-full border border-gray-300">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-2">User ID</th>
+            <th class="px-4 py-2">Reward Points</th>
+            <th class="px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users" class="hover:bg-gray-50">
+            <td class="border px-4 py-2">{{ user.userId }}</td>
+            <td class="border px-4 py-2">{{ user.rewardPoints }}</td>
+            <td class="border px-4 py-2 text-right">
+              <button (click)="approveRewardPoints(user.userId, user.rewardPoints)" class="bg-green-500 text-white px-3 py-2 rounded">Approve</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>  
