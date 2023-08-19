@@ -16,6 +16,7 @@ import { SellerAddProductComponent } from './seller-add-product/seller-add-produ
 import { AddProductFormComponent } from './add-product-form/add-product-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+import { ApproveRewardPointsComponent } from './approve-reward-points/approve-reward-points.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TransactionHistoryComponent } from './transaction-history/transaction-h
     SellerAddProductComponent,
     AddProductFormComponent,
     TransactionHistoryComponent,
+    ApproveRewardPointsComponent,
   ],
   imports: [
     BrowserModule,

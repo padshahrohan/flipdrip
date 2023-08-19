@@ -25,7 +25,7 @@ export class UserService {
     return this.http.put(this.url + '/admin/sellerTokensApproved', body);
   }
 
-  getCurrentUser () {
+  getCurrentUser() {
     const user = localStorage.getItem('currentUser');
     if (user) {
       return JSON.parse(user);
@@ -50,5 +50,9 @@ export class UserService {
 
   logout() {
     localStorage.removeItem('currentUser');
+  }
+
+  getApprovalListOfBuyers(sellerId: any) {
+    return this.http.get<any>(this.url + `seller/getApprovalListOfBuyers?SellerId=${sellerId}`);
   }
 }

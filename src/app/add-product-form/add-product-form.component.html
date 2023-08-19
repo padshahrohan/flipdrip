@@ -2,7 +2,7 @@
     <h2 class="text-lg font-semibold mb-4">Add New Product</h2>
     <form [formGroup]="productForm">
         <div class="mb-4">
-            <label for="productID" class="block font-medium mb-1">Product Name:</label>
+            <label for="productName" class="block font-medium mb-1">Product Name:</label>
             <input type="text" id="productName" name="productName" formControlName="productName"  class="w-full border border-gray-300 rounded px-3 py-2">
           </div>
       <div class="mb-4">
@@ -13,7 +13,15 @@
         <label for="productPrice" class="block font-medium mb-1">Product Price:</label>
         <input type="text" id="productPrice" name="productPrice" formControlName="productPrice" class="w-full border border-gray-300 rounded px-3 py-2">
       </div>
-      <button type="submit" [disabled]="productForm.invalid" (click)="submit()" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow">Add Product</button>
+      <div class="mb-4">
+        <label for="priceInTokens" class="block font-medium mb-1">Product Price In FDs:</label>
+        <input type="number" id="priceInTokens" name="priceInTokens" formControlName="priceInTokens" class="w-full border border-gray-300 rounded px-3 py-2">
+      </div>
+      <!-- <div class="mt-4">
+        <label for="productImage" class="block font-medium mb-1">Product Images:</label>
+        <input type="file" id="productImage" name="productImage" (change)="onImageChange($event)" accept="image/*" multiple>
+      </div> -->
+      <button type="submit" [disabled]="productForm.invalid" (click)="submit()" class="mt-2 bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow">Add Product</button>
     </form>
   </div>
   

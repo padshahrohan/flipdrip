@@ -15,4 +15,8 @@ export class ProductService {
   getAllProducts() {
     return this.http.get<Response<Product[]>>(this.url + "/product/list");
   }
+
+  addProduct(product: any) {
+    return this.http.post(this.url + '/product/add', product);
+  }
 }
