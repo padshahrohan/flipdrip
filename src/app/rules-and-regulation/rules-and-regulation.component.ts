@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { ContractService } from '../contract.service';
 
 @Component({
   selector: 'app-rules-and-regulation',
@@ -8,7 +9,24 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class RulesAndRegulationComponent {
   @Output() closeModalEvent = new EventEmitter();
 
+  walletAddress: string;
+  walletConnected = false;
+
+  constructor(private contractService: ContractService) {
+    this.contractService.walletAddress$.subscribe((address) => {
+      this.walletAddress = address;
+
+      if (this.walletAddress) {
+        this.walletConnected  = true;
+      }
+    })
+  }
+
   closeModal(): void {
     this.closeModalEvent.emit();
+  }
+
+  async connectWallet() {
+    await this.contractService.connectWallet();
   }
 }

@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
 
-
   isModalOpen = false;
 
   constructor(private router: Router) {
