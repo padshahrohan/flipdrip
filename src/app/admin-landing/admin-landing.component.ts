@@ -26,6 +26,8 @@ export class AdminLandingComponent implements OnInit {
   }
 
   async doTransaction(record: User) {
+    console.log(record);
+    
     const result = await this.contractService.transfer(record.WalletAddress, '5000');
 
     if (result) {

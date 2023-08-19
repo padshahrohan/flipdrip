@@ -37,8 +37,17 @@ export class ContractService {
     
   }
 
-  async getBalance(address: string) {
-    return this.provider.getBalance(address);
+  async getBalance(address: string): Promise<number> {
+    return new Promise<number>((resolve, reject) => {
+      try {
+        const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
+        resolve(contract['balanceOf'](address));
+        console.log('Transfer successful');
+      } catch (error) {
+        resolve(0);
+        console.error('Transfer Error:', error);
+      }
+    });
   }
 
   async getTransactionHistory (address: any) {
