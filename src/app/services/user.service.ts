@@ -14,6 +14,17 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getApprovalListOfSellers() {
+    return this.http.get<Response<User[]>>(this.url + '/admin/getApprovalListOfSellers');
+  }
+
+  approveSellerTokens(id: string) {
+    let body = {
+      SellerId : id
+    }
+    return this.http.put(this.url + '/admin/sellerTokensApproved', body);
+  }
+
   getCurrentUser () {
     const user = localStorage.getItem('currentUser');
     if (user) {
