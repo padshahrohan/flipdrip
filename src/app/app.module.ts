@@ -9,6 +9,12 @@ import { BuyerComponent } from './buyer/buyer.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { AdminLandingComponent } from './admin-landing/admin-landing.component';
+import { RegisterComponent } from './register/register.component';
+import { RulesAndRegulationComponent } from './rules-and-regulation/rules-and-regulation.component';
+import { SellerLandingComponent } from './seller-landing/seller-landing.component';
+import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
+import { AddProductFormComponent } from './add-product-form/add-product-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,12 +23,18 @@ import { AdminLandingComponent } from './admin-landing/admin-landing.component';
     BuyerComponent,
     MenuComponent,
     ProductListComponent,
-    AdminLandingComponent
+    AdminLandingComponent,
+    RegisterComponent,
+    RulesAndRegulationComponent,
+    SellerLandingComponent,
+    SellerAddProductComponent,
+    AddProductFormComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

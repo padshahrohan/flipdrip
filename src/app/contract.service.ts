@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { ethers } from 'ethers';
 import FlipKart from 'src/assets/Flipdrip.json';
 import { environment } from 'src/environments/environment';
+import { formatEther, parseEther, parseUnits } from 'ethers/lib/utils';
 
 declare global {
   interface Window {
@@ -20,15 +21,11 @@ export class ContractService {
   walletAddress: Subject<string> = new Subject<string>();
   walletAddress$ = this.walletAddress.asObservable();
 
-  async transfer(walletAddress: string, amount: string): Promise<boolean> {
+  async transfer(toAddress: string, amount: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
-        // const walletAddress = '0x81B19fB3B2BF89D06f660fdE6158606CB7C437b5'
-        const walletAddress = '0x7ED0AB713d47CC92AECcde6b37a7df5104F7c6F0'
-        // const amountInEther = ethers.utils.parseUnits(amount, 'ether');
-        const amountInEther = '100000000000000000000'
         const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
-        contract['transfer'](walletAddress, amountInEther);
+        contract['transfer'](toAddress, parseEther(amount));
         resolve(true);
         console.log('Transfer successful');
       } catch (error) {
