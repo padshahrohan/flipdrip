@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import FlipKart from 'src/assets/Flipdrip.json';
 import { environment } from 'src/environments/environment';
 import { formatEther, parseEther, parseUnits } from 'ethers/lib/utils';
+import { getTransactionReceipt } from 'web3/lib/commonjs/eth.exports';
 
 declare global {
   interface Window {
@@ -36,6 +37,43 @@ export class ContractService {
     
   }
 
+  async getTransactionHistory (address: any) {
+    console.log(address);
+    
+    const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:7545');
+    const latestBlockNumber = await provider.getBlockNumber();
+    console.log(latestBlockNumber);
+    
+    const history: any[] = [];
+    // Iterate through blocks and fetch transactions
+    for (let blockNumber = 0; blockNumber <= latestBlockNumber; blockNumber++) {
+      const block = await provider.getBlockWithTransactions(blockNumber);
+      console.log(block.transactions);
+      
+      // Filter transactions for the specified address
+      const transactions = block.transactions
+                          .filter(tx => (tx.from && tx.to) && (tx.from.toLowerCase() === address || tx.to.toLowerCase() === address))
+                          .map(tx => {
+                            console.log(tx);
+                            
+                              let body = {
+                                to: tx.to,
+                                from: tx.from,
+                                value: '',
+                                gas: tx.gasPrice
+                              }
+                              provider.getTransactionReceipt(tx.hash).then(receipt => {
+                                receipt.logs.forEach(log => {
+                                  body.value = ethers.utils.formatUnits(ethers.BigNumber.from(log.data), 18);
+                                });
+                              });
+                              history.push(body);
+                          });
+    }
+
+    return history;
+  }
+
   async connectWallet() {
     try {
       // Check if MetaMask is available
@@ -46,6 +84,8 @@ export class ContractService {
         const accounts = await this.provider.send('eth_requestAccounts', []);
 
         if (accounts.length > 0) {
+          console.log(accounts[0]);
+          
           this.walletAddress.next(accounts[0]);
         } else {
           console.log('No accounts found');

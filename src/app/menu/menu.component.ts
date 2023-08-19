@@ -21,11 +21,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {  
-    this.userService.user$.subscribe((user) => {
-      this.currentUser = user;
-      console.log(this.currentUser);
-      
-    })
+    this.currentUser = this.userService.getCurrentUser();
   }
 
 
@@ -35,5 +31,21 @@ export class MenuComponent implements OnInit {
 
   logout() {
     this.router.navigate(['']);
+  }
+
+  showTransactionHistory() {
+    this.router.navigate(['transaction-history']);
+  }
+
+  goToHome(role: string | undefined) {
+    if (role === 'admin') {
+      this.router.navigate(['admin-landing']);  
+    } else if (role === 'buyer') {
+      this.router.navigate(['buyer-landing']);
+    } else if (role === 'seller'){
+      this.router.navigate(['seller-landing']);
+    } else {
+      alert('Some error occurred ! Try after some time');
+    }
   }
 }

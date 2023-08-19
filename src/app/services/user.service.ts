@@ -9,16 +9,25 @@ import { User } from 'src/model/user.model';
 })
 export class UserService {
 
+  currentUser: User;
   url = 'http://172.17.86.148:3000';
-  user: Subject<User> = new Subject<User>();
-  user$ = this.user.asObservable();
 
   constructor(private http: HttpClient) { }
+
+  getCurrentUser () {
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+      return JSON.parse(user);
+    } else {
+      return null;
+    }
+    
+  }
 
   login(body: any) {
     return this.http.post<Response<User>>(this.url + "/user/login", body).pipe(
       map((resp: Response<User>) => {
-        this.user.next(resp.result);
+        localStorage.setItem('currentUser', JSON.stringify(resp.result));
         return resp.result;
       })
     );
@@ -29,6 +38,6 @@ export class UserService {
   }
 
   logout() {
-    this.user.complete();
+    localStorage.removeItem('currentUser');
   }
 }

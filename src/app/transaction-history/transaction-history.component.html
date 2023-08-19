@@ -1,0 +1,24 @@
+<app-menu></app-menu>
+<div class="p-6" *ngIf="records?.length == 0">
+    <h2 class="text-2xl font-semibold mb-4">No Transactions found</h2>
+</div>
+<div class="p-6" *ngIf="records?.length > 0">
+    <h2 class="text-2xl font-semibold mb-4">Transaction History</h2>
+    <table class="min-w-full border bg-white" >
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 text-left">From</th>
+          <th class="px-4 py-2 text-left">To</th>
+          <th class="px-4 py-2 text-left">Value (FD)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of records" class="hover:bg-gray-50">
+          <td class="px-4 py-2">{{ tx.from }}</td>
+          <td class="px-4 py-2">{{ tx.to }}</td>
+          <td class="px-4 py-2">{{ tx.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
