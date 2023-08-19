@@ -20,10 +20,10 @@ export class SellerLandingComponent {
   }
 
   fetchProducts() {
-    const sellerId = 1; // Replace with the actual seller ID
+    const sellerId = 3; // Replace with the actual seller ID
 
     // Make an HTTP GET request to fetch products by seller ID
-    this.http.get<any>(`http://172.17.87.26:3000/product/list?SellerId=${sellerId}`).subscribe(
+    this.http.get<any>(`http://172.17.86.148:3000/product/list?SellerId=${sellerId}`).subscribe(
       (response) => {
         this.products = response.result; // Assign fetched products to the array
       },

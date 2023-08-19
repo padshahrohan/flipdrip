@@ -13,24 +13,37 @@ export class AddProductFormComponent {
     productName : new FormControl('', Validators.required),
     productDescription : new FormControl('', Validators.required),
     productPrice : new FormControl('', Validators.required),
+    priceInTokens: new FormControl('', Validators.required)
   });
 
   constructor(private http: HttpClient) { }
 
   submit() {
     const productData = {
-      sellerID: 3,
-      productName: this.productForm.value.productName,
-      productDescription: this.productForm.value.productDescription,
-      productPrice: this.productForm.value.productPrice
+      SellerId: 3,
+      ProductDescription: this.productForm.value.productDescription,
+      ProductPrice: this.productForm.value.productPrice,
+      Tokens: this.productForm.value.priceInTokens,
+      ProductName: this.productForm.value.productName
     };
     
-    this.http.post('http://localhost:3000/addproduct', productData).subscribe(
+    this.http.post('http://172.17.86.148:3000/product/add', productData).subscribe(
     (response) => {
+      alert('Product added successfully');
       console.log('Product added successfully:', response);
+      window.location.reload();
     },
     (error) => {
       console.error('Error adding product:', error);
     });
+  }
+  onImageChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const file = inputElement.files[0];
+
+    // if (file) {
+      // Process the selected image file
+    }
   }
 }
