@@ -23,7 +23,10 @@ export class ContractService {
   async transfer(walletAddress: string, amount: string): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       try {
-        const amountInEther = ethers.utils.parseUnits(amount, 'ether');
+        // const walletAddress = '0x81B19fB3B2BF89D06f660fdE6158606CB7C437b5'
+        const walletAddress = '0x7ED0AB713d47CC92AECcde6b37a7df5104F7c6F0'
+        // const amountInEther = ethers.utils.parseUnits(amount, 'ether');
+        const amountInEther = '100000000000000000000'
         const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
         contract['transfer'](walletAddress, amountInEther);
         resolve(true);
