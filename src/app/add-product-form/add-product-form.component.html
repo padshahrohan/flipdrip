@@ -1,0 +1,19 @@
+<div class="bg-white rounded p-6 shadow-md">
+    <h2 class="text-lg font-semibold mb-4">Add New Product</h2>
+    <form [formGroup]="productForm">
+        <div class="mb-4">
+            <label for="productID" class="block font-medium mb-1">Product Name:</label>
+            <input type="text" id="productName" name="productName" formControlName="productName"  class="w-full border border-gray-300 rounded px-3 py-2">
+          </div>
+      <div class="mb-4">
+        <label for="productDescription" class="block font-medium mb-1">Product Description:</label>
+        <input type="text" id="productDescription" name="productDescription" formControlName="productDescription"  class="w-full border border-gray-300 rounded px-3 py-2">
+      </div>
+      <div class="mb-4">
+        <label for="productPrice" class="block font-medium mb-1">Product Price:</label>
+        <input type="text" id="productPrice" name="productPrice" formControlName="productPrice" class="w-full border border-gray-300 rounded px-3 py-2">
+      </div>
+      <button type="submit" [disabled]="productForm.invalid" (click)="submit()" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow">Add Product</button>
+    </form>
+  </div>
+  

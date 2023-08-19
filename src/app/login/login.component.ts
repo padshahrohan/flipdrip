@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     
     //API call to match username and password and get user metadata
-    this.router.navigate(['admin-landing']);
+    this.router.navigate(['seller-landing']);
     
   }
 
