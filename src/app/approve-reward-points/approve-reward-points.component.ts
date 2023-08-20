@@ -33,7 +33,7 @@ export class ApproveRewardPointsComponent implements OnInit{
     // Make an HTTP GET request to fetch products by seller ID
     this.userService.getApprovalListOfBuyers(sellerId).subscribe(
       (response) => {
-        this.users = response.buyerDetails; // Assign fetched products to the array
+        this.users = response.result ? response.result : []; // Assign fetched products to the array
       },
       (error) => {
         console.error('Error fetching products:', error);

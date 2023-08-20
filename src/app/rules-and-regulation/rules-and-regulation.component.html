@@ -4,62 +4,19 @@
   <div class="bg-white width-750 rounded overflow-hidden">
     <!-- Header -->
     <div class="p-4 border-b border-gray-300">
-      <h2 class="text-lg font-semibold">Terms And Condition</h2>
+      <h2 class="text-lg font-semibold">Details of the Program</h2>
     </div>
     
     <!-- Body -->
-    <div class="p-4 overflow-y-auto max-h-96">
+    <div class="p-4 container overflow-y-auto mx-auto max-h-96">
       <!-- Scrollable content -->
-      <div>
-        FlipDrip Seller Loyalty Program Rules:
-
-        Prerequisites:
-
-        Before joining the programme, you must setup a metamask wallet and enable the metamask extenstion in your browser (https://metamask.io/download/)
-        Your wallet address is your unique address that will be used for all FlipDrip transactions
-        In case you have an existing wallet, ensure you are signed in to your wallet from your metamask browser extenstion 
-
-        Eligibility:
-
-        Only registered sellers on Flipkart are eligible to participate in the FlipDrip loyalty program.
-        Sellers must comply with Flipkart's terms of service and community guidelines.
-
-        Token Allocation:
-
-        Upon registration, sellers will receive an initial allocation of 1,000 "FlipDrips" (FDs) as a welcome bonus.
-        Additional FDT can be earned through various program activities.
-
-        List
-        Earning FDT:
-
-        Sellers can earn FDTs from Flipkart:
-        Customoers who have accumulated  sufficient FDs can purchase your product using FDs. In that case, FDs will be directly credited from the customer's wallet to your wallet.
-        Successful product listings and sales.    1 FD per 10 products listed. 2 FD per 10 product sold.
-        Achieving high customer ratings and reviews. 0.25 FDs per 50 customer ratings. 0.5 FDs per 50 customer reviews.
-        Meeting specific sales milestones. 50 FDs per 500 products sold.
-        Referring other sellers to join FlipDrip. 10 FDs per referral
-        Participating in special promotions or campaigns. Amount of FDs that can be earned will be notified during campaign registration.
-
-        If you ever run out of FDs, you can request for FDs through the FlipDrip portal. You will be charged a fee of INR 5,000 for 100 FDs. You can only request for FDs if you have exhausted your current FD balance.
-
-        FDT Utility:
-
-        FDT can be used within the FlipDrip ecosystem for:
-        Redeeming- Purchasing products after accumulating sufficient FDs.
-
-        :
-
-        Governance:
-
-        Sellers may have a say in program governance through voting mechanisms, helping to shape the future of FlipDrip.
-        Compliance:
-
-        Sellers must adhere to any tax or legal requirements related to owning and using FDT within their respective jurisdictions.
-        Updates:
-
-        Flipkart reserves the right to update or modify the FlipDrip program rules and tokenomics with prior notice to participating sellers.
-        By adhering to these rules and tokenomics, Flipkart's FlipDrip loyalty program aims to incentivize and reward sellers for their contributions to the platform while promoting transparency, fairness, and engagement within the ecosystem.
-      </div>
+      <ng-container *ngIf="isBuyer">
+        <app-buyer-program-details></app-buyer-program-details>
+      </ng-container>
+      
+      <ng-container *ngIf="!isBuyer">
+        <app-seller-program-details></app-seller-program-details>
+      </ng-container>
       <div class="mt-4 mb-4">
         <button *ngIf="!walletConnected"
           class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-600 mr-4"

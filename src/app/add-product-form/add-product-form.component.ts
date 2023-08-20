@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContractService } from '../services/contract.service';
@@ -21,6 +21,8 @@ export class AddProductFormComponent implements OnInit {
     priceInTokens: new FormControl('', Validators.required)
   });
 
+  @Output() productAdded = new EventEmitter<void>();
+
   constructor(private http: HttpClient, private userService: UserService,private productService:
     ProductService) { }
 
@@ -40,21 +42,15 @@ export class AddProductFormComponent implements OnInit {
     };
     
     this.productService.addProduct(productData).subscribe(
-    (response) => {
-      console.log('Product added successfully:', response);
-    },
-    (error) => {
-      console.error('Error adding product:', error);
+      (response) => {
+        this.productAdded.emit();
+        console.log('Product added successfully:', response);
+      },
+      (error) => {
+        
+        this.productAdded.emit();
+        console.error('Error adding product:', error);
     });
   }
 
-  onImageChange(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      const file = inputElement.files[0];
-
-    // if (file) {
-      // Process the selected image file
-    }
-  }
 }
