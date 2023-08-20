@@ -1,22 +1,22 @@
 <app-menu></app-menu>
 <div class="p-6" *ngIf="records?.length == 0">
-    <h2 class="text-2xl font-semibold mb-4">No Transactions found</h2>
+    <h2 class="text-2xl font-semibold mb-4 text-center">No Transactions found</h2>
 </div>
-<div class="p-6" *ngIf="records?.length > 0">
-    <h2 class="text-2xl font-semibold mb-4">Transaction History</h2>
-    <table class=" min-w-full border bg-white" >
-      <thead class="bg-gray-100">
+<div class="p-6 overflow-x-auto text-center" *ngIf="records?.length > 0">
+    <h2 class="text-2xl font-semibold mb-4 text-center">Transaction History</h2>
+    <table class="min-w-full border divide-y divide-gray-200" >
+      <thead class="bg-gray-800 text-white">
         <tr>
-          <th class="border px-4 py-2 text-left">From</th>
-          <th class="border px-4 py-2 text-left">To</th>
-          <th class="border px-4 py-2 text-left">Value (FD)</th>
+          <th class="border px-6 py-3">From</th>
+          <th class="border px-6 py-3">To</th>
+          <th class="border px-6 py-3">Value (FD)</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let tx of records" class="hover:bg-gray-50">
-          <td class="border px-4 py-2">{{ addressToName[tx.from] }}</td>
-          <td class="border px-4 py-2">{{ addressToName[tx.to] }}</td>
-          <td class="border px-4 py-2">{{ tx.value }}</td>
+        <tr *ngFor="let tx of records" class="hover:bg-gray-100">
+          <td class="border px-6 py-3">{{ addressToName[tx.from] }}</td>
+          <td class="border px-6 py-3">{{ addressToName[tx.to] }}</td>
+          <td class="border px-6 py-3">{{ tx.value }}</td>
         </tr>
       </tbody>
     </table>
