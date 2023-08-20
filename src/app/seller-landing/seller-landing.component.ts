@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { User } from 'src/model/user.model';
 import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { ContractService } from '../services/contract.service';
 
 @Component({
   selector: 'app-seller-landing',
@@ -17,13 +18,17 @@ export class SellerLandingComponent {
   products: any[] = []; // Array to store fetched products
   showAddProductForm: boolean = false;
   currentUser: User;
+  balance: string;
 
   constructor(private router: Router, private userService: UserService,
-    private productService: ProductService) {}
+    private productService: ProductService, private contractService: ContractService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.currentUser = this.userService.getCurrentUser();
+    await this.contractService.connectWallet();
+    this.balance = await this.contractService.getBalance(this.userService.getCurrentUser().WalletAddress);  
     this.fetchProducts();
+    
   }
 
   fetchProducts() {

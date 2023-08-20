@@ -21,12 +21,15 @@ export class ProductListComponent implements OnInit {
   currentUser: User;
   isVisible = false;
 
+  balance: string;
+
   constructor(private productService: ProductService, private contractService: ContractService,
     private userService: UserService) {
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.fetchBalance();
     this.contractService.connectWallet().then((res) => {
       this.currentUser = this.userService.getCurrentUser();
       this.productService.getAllProducts().subscribe((resp) => {
@@ -35,6 +38,10 @@ export class ProductListComponent implements OnInit {
     })
     
     
+  }
+
+  async fetchBalance() {
+    this.balance = await this.contractService.getBalance(this.userService.getCurrentUser().WalletAddress);  
   }
 
   showAlert() : void {
@@ -66,6 +73,7 @@ export class ProductListComponent implements OnInit {
         this.userService.addTransaction(body).subscribe((res) => {
           this.alertMessage = 'Product redeemed successfully';
           this.showAlert();
+          this.fetchBalance();
         });
       })
     });

@@ -21,6 +21,9 @@ export class ContractService {
 
   walletAddress: Subject<string> = new Subject<string>();
   walletAddress$ = this.walletAddress.asObservable();
+
+  balance: Subject<string> = new Subject<string>();
+  balance$ = this.balance.asObservable();
   
   async transfer(toAddress: string, amount: string) {
     const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
@@ -32,7 +35,9 @@ export class ContractService {
   async getBalance(address: string) {
     const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
     const balance = await contract['balanceOf'](address);
-    return balance;
+    const fds = ethers.utils.formatUnits(balance, 18);
+    this.balance.next(fds);
+    return fds;
   }
   
   async connectWallet() {

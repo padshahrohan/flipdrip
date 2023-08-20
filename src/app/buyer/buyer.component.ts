@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { ContractService } from '../services/contract.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-buyer',
@@ -12,7 +13,7 @@ export class BuyerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-   
+      
   }
 
 }
