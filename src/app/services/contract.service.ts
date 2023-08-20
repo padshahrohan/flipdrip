@@ -34,43 +34,7 @@ export class ContractService {
     const balance = await contract['balanceOf'](address);
     return balance;
   }
-
-  async getTransactionHistory (address: any) {
-    console.log(address);
-    
-    const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:7545');
-    const latestBlockNumber = await provider.getBlockNumber();
-    console.log(latestBlockNumber);
-    
-    const history: any[] = [];
-    // Iterate through blocks and fetch transactions
-    for (let blockNumber = 0; blockNumber <= latestBlockNumber; blockNumber++) {
-      const block = await provider.getBlockWithTransactions(blockNumber);
-      
-      // Filter transactions for the specified address
-      const transactions = block.transactions
-                          .filter(tx => (tx.from && tx.to) && (tx.from.toLowerCase() === address || tx.to.toLowerCase() === address))
-                          .map(tx => {
-                            console.log(tx);
-                            
-                              let body = {
-                                to: tx.to,
-                                from: tx.from,
-                                value: '',
-                                gas: tx.gasPrice
-                              }
-                              provider.getTransactionReceipt(tx.hash).then(receipt => {
-                                receipt.logs.forEach(log => {
-                                  body.value = ethers.utils.formatUnits(ethers.BigNumber.from(log.data), 18);
-                                });
-                              });
-                              history.push(body);
-                          });
-    }
-
-    return history;
-  }
-
+  
   async connectWallet() {
     try {
       // Check if MetaMask is available

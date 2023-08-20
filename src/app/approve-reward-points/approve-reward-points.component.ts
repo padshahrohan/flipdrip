@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { User } from 'src/model/user.model';
 import { ProductService } from '../services/product.service';
 import { ContractService } from '../services/contract.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-approve-reward-points',
@@ -41,11 +42,19 @@ export class ApproveRewardPointsComponent implements OnInit{
   }
 
   async approveRewardPoints(user: any) {
-    this.contractService.transfer(user.WalletAddress, user.Coins+"").then((res) => {
-      this.userService.approveBuyerTokens(this.currentUser.ID, user.ID).subscribe((res) => {
-        this.fetchUserDetails();
-      }); 
-    })
+    await this.contractService.transfer(user.WalletAddress, user.Coins+'');
+    let body = {
+      FromWalletAddress: this.currentUser.WalletAddress,
+      ToWalletAddress: user.WalletAddress,
+      Coins: user.Coins
+    }
+    const approveBuyerTokens$ = this.userService.approveBuyerTokens(this.currentUser.ID, user.ID);
+    const addTransaction$ = this.userService.addTransaction(body);
+      
+    forkJoin([approveBuyerTokens$, addTransaction$]).subscribe((res) => {
+      this.fetchUserDetails();
+    }); 
+    
 
     console.log(`Reward points approved for wallet address ${user.WalletAddress}`);
   }

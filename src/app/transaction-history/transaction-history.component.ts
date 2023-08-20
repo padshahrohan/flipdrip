@@ -10,7 +10,7 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./transaction-history.component.css']
 })
 export class TransactionHistoryComponent implements OnInit {
-  records: any;
+  transactions: any;
   currentUser: User;
   walletAddresses = new Set();
   addressToName: any;
@@ -20,27 +20,8 @@ export class TransactionHistoryComponent implements OnInit {
 
   async ngOnInit() {
     this.currentUser = this.userService.getCurrentUser();
-    this.contractService.getTransactionHistory(this.currentUser.WalletAddress).then((records) => {
-      
-      records.forEach((tx) => {
-        if (tx.to) {
-          tx.to = tx.to.toLowerCase();
-          this.walletAddresses.add(tx.to);
-        }
-          
-        if (tx.from) {
-          tx.from = tx.from.toLowerCase();
-          this.walletAddresses.add(tx.from);
-        }
-          
-      })
-
-      
-      this.userService.getUserNameForWalletAddresses(Array.from(this.walletAddresses)).subscribe((res) => {
-        console.log(res);
-        this.addressToName = res.result;
-        this.records = records;  
-      })
+    this.userService.getTransactionsFor(this.currentUser.ID).subscribe((res) => {
+      this.transactions = res.result ? res.result : [];
     })
     
   }

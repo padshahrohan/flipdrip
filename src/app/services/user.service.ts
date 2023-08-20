@@ -18,6 +18,10 @@ export class UserService {
     return this.http.get<Response<User[]>>(this.url + '/admin/getApprovalListOfSellers');
   }
 
+  getTransactionsFor(id: any) {
+    return this.http.get<Response<{ToName: string, FromName:string, Coins:number}[]>>(this.url + '/user/transactionList?Id=' + id);
+  }
+
   getUserNameForWalletAddresses(walletAddresses: any) {
     console.log(walletAddresses);
     let body = {
@@ -44,6 +48,10 @@ export class UserService {
       SellerId : id
     }
     return this.http.put(this.url + '/admin/sellerTokensApproved', body);
+  }
+
+  addTransaction(body: any) {
+    return this.http.post(this.url + '/user/addTransaction', body);
   }
 
   getCurrentUser() {
