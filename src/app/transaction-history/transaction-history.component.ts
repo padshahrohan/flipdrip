@@ -14,12 +14,15 @@ export class TransactionHistoryComponent implements OnInit {
   currentUser: User;
   walletAddresses = new Set();
   addressToName: any;
+  balance:string;
   constructor(private contractService: ContractService, private userService: UserService) {
 
   }
 
   async ngOnInit() {
+    await this.contractService.connectWallet();
     this.currentUser = this.userService.getCurrentUser();
+    this.balance = await this.contractService.getBalance(this.currentUser.WalletAddress);
     this.userService.getTransactionsFor(this.currentUser.ID).subscribe((res) => {
       console.log(res);
       

@@ -17,11 +17,17 @@ import { forkJoin } from 'rxjs';
 export class ApproveRewardPointsComponent implements OnInit{
   users: any[] = [];
   currentUser: User;
+  balance: string;
 
   async ngOnInit() {
     await this.contractService.connectWallet();
     this.currentUser = this.userService.getCurrentUser();
+    this.fetchBalance();
     this.fetchUserDetails();
+  }
+
+  async fetchBalance() {
+    this.balance = await this.contractService.getBalance(this.userService.getCurrentUser().WalletAddress);
   }
 
   constructor(private http: HttpClient, private userService: UserService, 
@@ -52,6 +58,7 @@ export class ApproveRewardPointsComponent implements OnInit{
     const addTransaction$ = this.userService.addTransaction(body);
       
     forkJoin([approveBuyerTokens$, addTransaction$]).subscribe((res) => {
+      this.fetchBalance();
       this.fetchUserDetails();
     }); 
     

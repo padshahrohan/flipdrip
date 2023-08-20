@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 })
 export class AdminLandingComponent implements OnInit {
   records: User[] = [];
+  balance: string;
 
   constructor(private contractService: ContractService, private http: HttpClient, private userService: UserService) {
     
@@ -21,9 +22,14 @@ export class AdminLandingComponent implements OnInit {
 
   async ngOnInit() {
     await this.contractService.connectWallet();
+    this.fetchBalance();
     this.userService.getApprovalListOfSellers().subscribe((resp) => {
       this.records = resp.result ? resp.result : [];
     });
+  }
+
+  async fetchBalance() {
+    this.balance = await this.contractService.getBalance(this.userService.getCurrentUser().WalletAddress);  
   }
 
   async doTransaction(record: User) {
@@ -41,6 +47,7 @@ export class AdminLandingComponent implements OnInit {
       const addTransaction$ = this.userService.addTransaction(body);
       forkJoin([approveSellerTokens$, addTransaction$])
       .subscribe((res) => {
+        this.fetchBalance();
         this.userService.getApprovalListOfSellers().subscribe((resp) => {
           this.records = resp.result ? resp.result : [];
         })
