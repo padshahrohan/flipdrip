@@ -6,7 +6,7 @@
         <div class="text-lg font-semibold text-gray-800 mt-2">
           Price: {{ product.ProductPrice }} INR OR {{ product.Tokens }} FD
         </div>
-        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600">
+        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600" (click)="openBuyProductModal(product)">
           Buy
         </button>
         <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
@@ -16,3 +16,4 @@
     </div>
   </div>
   
+  <app-buy-product-modal *ngIf="productToBuy" [product]="product" (closeModalEvent)="closeModal()"></app-buy-product-modal>

@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
 import { SellerLandingComponent } from './seller-landing/seller-landing.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
+import { ApproveRewardPointsComponent } from './approve-reward-points/approve-reward-points.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent },
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: 'seller-landing', component: SellerLandingComponent },
   {path: 'seller-add-product', component: SellerAddProductComponent },
   {path: 'admin-landing', component: AdminLandingComponent },
-  {path: 'transaction-history', component: TransactionHistoryComponent }
+  {path: 'transaction-history', component: TransactionHistoryComponent },
+  {path: 'approve-reward-points', component: ApproveRewardPointsComponent }
 ];
 
 @NgModule({

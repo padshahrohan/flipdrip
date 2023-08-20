@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
 import { User } from 'src/model/user.model';
 import { ProductService } from '../services/product.service';
+import { ContractService } from '../services/contract.service';
 
 @Component({
   selector: 'app-approve-reward-points',
@@ -16,12 +17,14 @@ export class ApproveRewardPointsComponent implements OnInit{
   users: any[] = [];
   currentUser: User;
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.contractService.connectWallet();
     this.currentUser = this.userService.getCurrentUser();
     this.fetchUserDetails();
   }
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient, private userService: UserService, 
+    private contractService: ContractService ) {}
 
   fetchUserDetails() {
     const sellerId = this.currentUser.ID; // Replace with the actual seller ID
@@ -37,30 +40,13 @@ export class ApproveRewardPointsComponent implements OnInit{
     );
   }
 
-  async transferTokens(userAddress: string, tokensToTransferInEther: number) {
-    const tokensToTransferInWei = ethers.utils.parseEther(tokensToTransferInEther.toString());
-    if (window.ethereum) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      
-      const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, signer);
-      
-      try {
-        const txResponse = await contract['transfer'](userAddress, tokensToTransferInWei);
-        console.log('Transaction hash:', txResponse.hash);
-        alert("Token transfer approved!");
-        window.location.reload();
+  async approveRewardPoints(user: any) {
+    this.contractService.transfer(user.WalletAddress, user.Coins+"").then((res) => {
+      this.userService.approveBuyerTokens(this.currentUser.ID, user.ID).subscribe((res) => {
+        this.fetchUserDetails();
+      }); 
+    })
 
-      } catch (error) {
-        console.error('Error sending tokens:', error);
-      }
-    } else {
-      console.error('Metamask not detected.');
-    }
-  }
-
-  approveRewardPoints(userAddress: string, rewardPoints: number): void {
-    this.transferTokens(userAddress, rewardPoints);
-    console.log(`Reward points approved for wallet address ${userAddress}`);
+    console.log(`Reward points approved for wallet address ${user.WalletAddress}`);
   }
 }

@@ -18,6 +18,14 @@ export class UserService {
     return this.http.get<Response<User[]>>(this.url + '/admin/getApprovalListOfSellers');
   }
 
+  approveBuyerTokens(sellerId: any, buyerId: any) {
+    let body = {
+      BuyerId: buyerId,
+      SellerId: sellerId
+    }
+    return this.http.post(this.url + '/seller/buyersTokensApproved', body);
+  }
+
   approveSellerTokens(id: string) {
     let body = {
       SellerId : id
@@ -53,6 +61,6 @@ export class UserService {
   }
 
   getApprovalListOfBuyers(sellerId: any) {
-    return this.http.get<any>(this.url + `seller/getApprovalListOfBuyers?SellerId=${sellerId}`);
+    return this.http.get<any>(this.url + `/seller/getApprovalListOfBuyers?SellerId=${sellerId}`);
   }
 }

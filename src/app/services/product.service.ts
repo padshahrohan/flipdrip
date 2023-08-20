@@ -16,7 +16,24 @@ export class ProductService {
     return this.http.get<Response<Product[]>>(this.url + "/product/list");
   }
 
+  getAllProductsForSeller(sellerId: any) {
+    return this.http.get<Response<Product[]>>(this.url + `/product/list?SellerId=${sellerId}`);
+  }
+
   addProduct(product: any) {
     return this.http.post(this.url + '/product/add', product);
+  }
+
+  getLoyalty(buyerId: any, sellerId: any) {
+    return this.http.get<Response<number>>(this.url + '/product/getLoyalty?BuyerId='+ buyerId + '&SellerId=' + sellerId);
+  }
+
+  buyProduct(buyerId: any, sellerId: any, productId: any) {
+    let body = {
+      BuyerId: buyerId,
+      SellerId: sellerId,
+      ProductId: productId
+    }
+    return this.http.post(this.url + '/product/buy', body);
   }
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { Product } from 'src/model/product.model';
 
@@ -9,6 +9,9 @@ import { Product } from 'src/model/product.model';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+
+  productToBuy = false;
+  product: Product | null;
   products: Product[] = [];
 
   constructor(private productService: ProductService) {
@@ -22,4 +25,15 @@ export class ProductListComponent implements OnInit {
     })
     
   }
+
+  closeModal() {
+    this.product = null;
+    this.productToBuy = false;
+  }
+
+  openBuyProductModal(product: Product) {
+    this.product = product;
+    this.productToBuy = true;
+  }
+  
 }
