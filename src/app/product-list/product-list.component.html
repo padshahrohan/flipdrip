@@ -9,7 +9,7 @@
         <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md mr-4 hover:bg-blue-600" (click)="openBuyProductModal(product)">
           Buy
         </button>
-        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        <button class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" (click)="redeem(product)">
           Redeem
         </button>
       </div>
@@ -17,3 +17,7 @@
   </div>
   
   <app-buy-product-modal *ngIf="productToBuy" [product]="product" (closeModalEvent)="closeModal()"></app-buy-product-modal>
+
+  <div class="alert" [class.visible]="isVisible"> 
+    {{alertMessage}}
+  </div>

@@ -25,7 +25,6 @@ export class MenuComponent implements OnInit {
     const fds = await this.contractService.getBalance(this.currentUser.WalletAddress);
     this.balance = ethers.utils.formatUnits(fds, 18);
     console.log(this.balance);
-    
   }
 
 

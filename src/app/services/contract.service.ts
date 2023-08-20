@@ -46,7 +46,6 @@ export class ContractService {
     // Iterate through blocks and fetch transactions
     for (let blockNumber = 0; blockNumber <= latestBlockNumber; blockNumber++) {
       const block = await provider.getBlockWithTransactions(blockNumber);
-      console.log(block.transactions);
       
       // Filter transactions for the specified address
       const transactions = block.transactions
