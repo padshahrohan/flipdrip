@@ -21,6 +21,8 @@ export class TransactionHistoryComponent implements OnInit {
   async ngOnInit() {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.getTransactionsFor(this.currentUser.ID).subscribe((res) => {
+      console.log(res);
+      
       this.transactions = res.result ? res.result : [];
     })
     
