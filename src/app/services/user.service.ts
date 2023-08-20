@@ -18,6 +18,15 @@ export class UserService {
     return this.http.get<Response<User[]>>(this.url + '/admin/getApprovalListOfSellers');
   }
 
+  getUserNameForWalletAddresses(walletAddresses: any) {
+    console.log(walletAddresses);
+    let body = {
+      WalletAdd: walletAddresses
+    }
+    
+    return this.http.put<Response<any>>(this.url + '/user/getUserNamesForWalletAddresses', body);
+  }
+
   approveBuyerTokens(sellerId: any, buyerId: any) {
     let body = {
       BuyerId: buyerId,
