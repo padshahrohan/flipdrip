@@ -29,7 +29,7 @@ export class AdminLandingComponent implements OnInit {
   }
 
   async fetchBalance() {
-    this.balance = await this.contractService.getBalance(this.userService.getCurrentUser().WalletAddress);  
+    this.balance = await this.contractService.getBalance(this.userService.getCurrentUser().WalletAddress); 
   }
 
   async doTransaction(record: User) {

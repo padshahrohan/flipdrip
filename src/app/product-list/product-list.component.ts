@@ -29,9 +29,10 @@ export class ProductListComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.fetchBalance();
     this.contractService.connectWallet().then((res) => {
+      this.fetchBalance();
       this.currentUser = this.userService.getCurrentUser();
+      
       this.productService.getAllProducts().subscribe((resp) => {
         this.products = resp.result ? resp.result : [];
       })
@@ -42,6 +43,8 @@ export class ProductListComponent implements OnInit {
 
   async fetchBalance() {
     this.balance = await this.contractService.getBalance(this.userService.getCurrentUser().WalletAddress);  
+    console.log(this.balance);
+    
   }
 
   showAlert() : void {
@@ -53,8 +56,8 @@ export class ProductListComponent implements OnInit {
   }
 
   async redeem(product: Product) {
-    const fds = await this.contractService.getBalance(this.currentUser.WalletAddress);
-    const balance = ethers.utils.formatUnits(fds, 18);
+    const balance = await this.contractService.getBalance(this.currentUser.WalletAddress);
+    console.log(typeof balance);
 
     if (parseInt(balance) < product.Tokens) {
       this.alertMessage = 'Insufficient loyalty coins';
