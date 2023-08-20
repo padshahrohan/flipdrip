@@ -1,0 +1,25 @@
+<app-menu></app-menu>
+<div *ngIf="users.length === 0" class="text-center">
+  <h2 class="text-2xl font-semibold mb-4">No Pending Approvals</h2>
+</div>
+<div class="mt-8 text-center" *ngIf="users.length > 0">
+<h2 class="text-2xl font-semibold mb-4">Pending Approvals</h2>
+<table class="table-auto w-full border border-gray-300">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="px-4 py-2">User Name</th>
+        <th class="px-4 py-2">Reward Points</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users" class="hover:bg-gray-50">
+        <td class="border px-4 py-2">{{ user.UserName }}</td>
+        <td class="border px-4 py-2">{{ user.Coins }}</td>
+        <td class="border px-4 py-2">
+          <button (click)="approveRewardPoints(user)" class="bg-green-500 text-white px-3 py-2 rounded">Approve</button>
+        </td>
+      </tr>
+    </tbody>
+  </table> 
+</div> 

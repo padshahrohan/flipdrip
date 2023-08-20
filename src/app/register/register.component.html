@@ -7,6 +7,10 @@
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" [formGroup]="registerForm">
         <div class="mb-2">
+          <label for="name" class="block font-medium mb-1">Name</label>
+          <input type="text" required id="name" formControlName="name"  class="w-full p-2 border rounded-md">
+        </div>
+        <div class="mb-2">
           <label for="email" class="block font-medium mb-1">Email Address</label>
           <input type="email" required id="email" formControlName="email"  class="w-full p-2 border rounded-md">
         </div>

@@ -26,10 +26,12 @@ export class AdminLandingComponent implements OnInit {
   }
 
   async doTransaction(record: User) {
+    console.log(record);
+    
     const result = await this.contractService.transfer(record.WalletAddress, '5000');
 
     if (result) {
-      this.userService.approveSellerTokens(record.UserID).subscribe(() => {
+      this.userService.approveSellerTokens(record.ID).subscribe(() => {
         this.userService.getApprovalListOfSellers().subscribe((resp) => {
           this.records = resp.result ? resp.result : [];
         })

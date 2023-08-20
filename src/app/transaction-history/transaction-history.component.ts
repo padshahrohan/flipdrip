@@ -12,15 +12,37 @@ import { UserService } from '../services/user.service';
 export class TransactionHistoryComponent implements OnInit {
   records: any;
   currentUser: User;
+  walletAddresses = new Set();
+  addressToName: any;
   constructor(private contractService: ContractService, private userService: UserService) {
 
   }
 
   async ngOnInit() {
     this.currentUser = this.userService.getCurrentUser();
-    const records = await this.contractService.getTransactionHistory(this.currentUser.WalletAddress);
-    console.log(records);
-    this.records = records;
+    this.contractService.getTransactionHistory(this.currentUser.WalletAddress).then((records) => {
+      
+      records.forEach((tx) => {
+        if (tx.to) {
+          tx.to = tx.to.toLowerCase();
+          this.walletAddresses.add(tx.to);
+        }
+          
+        if (tx.from) {
+          tx.from = tx.from.toLowerCase();
+          this.walletAddresses.add(tx.from);
+        }
+          
+      })
+
+      
+      this.userService.getUserNameForWalletAddresses(Array.from(this.walletAddresses)).subscribe((res) => {
+        console.log(res);
+        this.addressToName = res.result;
+        this.records = records;  
+      })
+    })
+    
   }
 
   formatEther(wei: string): string {

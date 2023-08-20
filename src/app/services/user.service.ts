@@ -18,6 +18,23 @@ export class UserService {
     return this.http.get<Response<User[]>>(this.url + '/admin/getApprovalListOfSellers');
   }
 
+  getUserNameForWalletAddresses(walletAddresses: any) {
+    console.log(walletAddresses);
+    let body = {
+      WalletAdd: walletAddresses
+    }
+    
+    return this.http.put<Response<any>>(this.url + '/user/getUserNamesForWalletAddresses', body);
+  }
+
+  approveBuyerTokens(sellerId: any, buyerId: any) {
+    let body = {
+      BuyerId: buyerId,
+      SellerId: sellerId
+    }
+    return this.http.post(this.url + '/seller/buyersTokensApproved', body);
+  }
+
   approveSellerTokens(id: string) {
     let body = {
       SellerId : id
@@ -25,7 +42,7 @@ export class UserService {
     return this.http.put(this.url + '/admin/sellerTokensApproved', body);
   }
 
-  getCurrentUser () {
+  getCurrentUser() {
     const user = localStorage.getItem('currentUser');
     if (user) {
       return JSON.parse(user);
@@ -50,5 +67,9 @@ export class UserService {
 
   logout() {
     localStorage.removeItem('currentUser');
+  }
+
+  getApprovalListOfBuyers(sellerId: any) {
+    return this.http.get<any>(this.url + `/seller/getApprovalListOfBuyers?SellerId=${sellerId}`);
   }
 }

@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   isBuyer = false;
 
   registerForm = new FormGroup({
+    name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     acceptTerms: new FormControl(false, Validators.requiredTrue)
@@ -41,6 +42,7 @@ export class RegisterComponent implements OnInit {
 
   register() {
     let body = {
+      Name: this.registerForm.value.name,
       UserName : this.registerForm.value.email,
       UserPassword : this.registerForm.value.password,
       WalletAddress : this.walletAddress,

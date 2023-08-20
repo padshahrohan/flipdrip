@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ContractService } from '../services/contract.service';
 import { UserService } from '../services/user.service';
 import { User } from 'src/model/user.model';
+import { ethers } from 'ethers';
 
 @Component({
   selector: 'app-menu',
@@ -13,15 +14,18 @@ export class MenuComponent implements OnInit {
   isDropdownOpen = false;
   
   currentUser: User;
-
-  walletAddrress: string = "";
+  balance: string;
   
-  constructor(private router: Router , private userService: UserService) {
+  constructor(private router: Router , private userService: UserService, private contractService: ContractService) {
 
   }
 
-  ngOnInit(): void {  
+  async ngOnInit(){  
     this.currentUser = this.userService.getCurrentUser();
+    const fds = await this.contractService.getBalance(this.currentUser.WalletAddress);
+    this.balance = ethers.utils.formatUnits(fds, 18);
+    console.log(this.balance);
+    
   }
 
 
