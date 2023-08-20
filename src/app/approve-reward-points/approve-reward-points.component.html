@@ -1,25 +1,27 @@
 <app-menu></app-menu>
-<div *ngIf="users.length === 0" class="text-center">
-  <h2 class="text-2xl font-semibold mb-4 text-center">No Pending Approvals</h2>
+<div class="bg-gradient-to-t from-yellow-400 to-yellow-300 min-h-screen text-center justify-center px-6 py-12 lg:px-8">
+  <div *ngIf="users.length === 0" class="text-center">
+    <h2 class="text-2xl font-semibold mb-4 text-center">No Pending Approvals</h2>
+  </div>
+  <div class="p-6 overflow-x-auto text-center" *ngIf="users.length > 0">
+  <h2 class="text-2xl font-semibold mb-4 text-center">Pending Approvals</h2>
+  <table class="min-w-full border divide-y divide-gray-200">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="px-6 py-3 border">User Name</th>
+          <th class="px-6 py-3 border">Reward Points</th>
+          <th class="px-6 py-3 border">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td class="border px-6 py-3">{{ user.UserName }}</td>
+          <td class="border px-6 py-3">{{ user.Coins }}</td>
+          <td class="border px-6 py-3">
+            <button (click)="approveRewardPoints(user)" class="bg-transparent hover:bg-gray-800 text-gray-800 font-semibold hover:text-white py-2 px-4 border border-gray-800 hover:border-transparent rounded">Approve</button>
+          </td>
+        </tr>
+      </tbody>
+    </table> 
+  </div> 
 </div>
-<div class="p-6 overflow-x-auto text-center" *ngIf="users.length > 0">
-<h2 class="text-2xl font-semibold mb-4 text-center">Pending Approvals</h2>
-<table class="min-w-full border divide-y divide-gray-200">
-    <thead class="bg-gray-800 text-white">
-      <tr>
-        <th class="px-6 py-3 border">User Name</th>
-        <th class="px-6 py-3 border">Reward Points</th>
-        <th class="px-6 py-3 border">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users" class="hover:bg-gray-100">
-        <td class="border px-6 py-3">{{ user.UserName }}</td>
-        <td class="border px-6 py-3">{{ user.Coins }}</td>
-        <td class="border px-6 py-3">
-          <button (click)="approveRewardPoints(user)" class="bg-transparent hover:bg-gray-800 text-gray-800 font-semibold hover:text-white py-2 px-4 border border-gray-800 hover:border-transparent rounded">Approve</button>
-        </td>
-      </tr>
-    </tbody>
-  </table> 
-</div> 

@@ -12,12 +12,13 @@ import { AdminLandingComponent } from './admin-landing/admin-landing.component';
 import { RegisterComponent } from './register/register.component';
 import { RulesAndRegulationComponent } from './rules-and-regulation/rules-and-regulation.component';
 import { SellerLandingComponent } from './seller-landing/seller-landing.component';
-import { SellerAddProductComponent } from './seller-add-product/seller-add-product.component';
 import { AddProductFormComponent } from './add-product-form/add-product-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 import { ApproveRewardPointsComponent } from './approve-reward-points/approve-reward-points.component';
 import { BuyProductModalComponent } from './buy-product-modal/buy-product-modal.component';
+import { BuyerProgramDetailsComponent } from './buyer-program-details/buyer-program-details.component';
+import { SellerProgramDetailsComponent } from './seller-program-details/seller-program-details.component';
 
 @NgModule({
   declarations: [
@@ -30,11 +31,12 @@ import { BuyProductModalComponent } from './buy-product-modal/buy-product-modal.
     RegisterComponent,
     RulesAndRegulationComponent,
     SellerLandingComponent,
-    SellerAddProductComponent,
     AddProductFormComponent,
     TransactionHistoryComponent,
     ApproveRewardPointsComponent,
     BuyProductModalComponent,
+    BuyerProgramDetailsComponent,
+    SellerProgramDetailsComponent,
   ],
   imports: [
     BrowserModule,

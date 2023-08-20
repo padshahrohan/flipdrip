@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ContractService } from '../services/contract.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rules-and-regulation',
@@ -11,8 +12,10 @@ export class RulesAndRegulationComponent {
 
   walletAddress: string;
   walletConnected = false;
+  isBuyer = false;
 
-  constructor(private contractService: ContractService) {
+  constructor(private contractService: ContractService, private router: Router) {
+    this.isBuyer = router.url.includes('buyer');
     this.contractService.walletAddress$.subscribe((address) => {
       this.walletAddress = address;
 

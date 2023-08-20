@@ -4,29 +4,19 @@
   <div class="bg-white width-750 rounded overflow-hidden">
     <!-- Header -->
     <div class="p-4 border-b border-gray-300">
-      <h2 class="text-lg font-semibold">Terms And Condition</h2>
+      <h2 class="text-lg font-semibold">Details of the Program</h2>
     </div>
     
     <!-- Body -->
-    <div class="p-4 overflow-y-auto max-h-96">
+    <div class="p-4 container overflow-y-auto mx-auto max-h-96">
       <!-- Scrollable content -->
-      <div>
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        <!-- Repeat the content to make it longer -->
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-        This is the modal content. It will be scrollable if the content overflows the specified height.
-     
-      </div>
+      <ng-container *ngIf="isBuyer">
+        <app-buyer-program-details></app-buyer-program-details>
+      </ng-container>
+      
+      <ng-container *ngIf="!isBuyer">
+        <app-seller-program-details></app-seller-program-details>
+      </ng-container>
       <div class="mt-4 mb-4">
         <button *ngIf="!walletConnected"
           class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-600 mr-4"

@@ -5,6 +5,7 @@ import flipdripContractAbi from 'src/assets/Flipdrip.json';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
 import { User } from 'src/model/user.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-admin-landing',
@@ -29,9 +30,17 @@ export class AdminLandingComponent implements OnInit {
     console.log(record);
     
     const result = await this.contractService.transfer(record.WalletAddress, '5000');
+    let body = {
+      FromWalletAddress: this.userService.getCurrentUser().WalletAddress,
+      ToWalletAddress: record.WalletAddress,
+      Coins: 5000
+    }
 
     if (result) {
-      this.userService.approveSellerTokens(record.ID).subscribe(() => {
+      const approveSellerTokens$ = this.userService.approveSellerTokens(record.ID);
+      const addTransaction$ = this.userService.addTransaction(body);
+      forkJoin([approveSellerTokens$, addTransaction$])
+      .subscribe((res) => {
         this.userService.getApprovalListOfSellers().subscribe((resp) => {
           this.records = resp.result ? resp.result : [];
         })

@@ -54,11 +54,19 @@ export class ProductListComponent implements OnInit {
       this.showAlert();
       
     }
-
+    
+    
     this.userService.getWalletAddress(product.SellerId).subscribe((res) => {
+      let body = {
+        FromWalletAddress: this.currentUser.WalletAddress,
+        ToWalletAddress: res.result,
+        Coins: product.Tokens
+      }
       this.contractService.transfer(res.result, product.Tokens+"").then(() => {
-        this.alertMessage = 'Product redeemed successfully';
-        this.showAlert();
+        this.userService.addTransaction(body).subscribe((res) => {
+          this.alertMessage = 'Product redeemed successfully';
+          this.showAlert();
+        });
       })
     });
   }
