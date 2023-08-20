@@ -1,6 +1,6 @@
 <nav class="bg-gray-800 p-4">
     <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-blue-500 text-2xl font-bold italic">flipdrip.</h1>
+      <h1 class="text-blue-500 text-2xl font-bold italic">Flipdrip</h1>
       <span class="text-white text-lg font-semibold">Wallet Address : {{currentUser?.WalletAddress}}</span>
       
       <div class="flex items-center">
@@ -13,9 +13,12 @@
           </button>
           <div *ngIf="isDropdownOpen" class="origin-top-right absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-  
-              <button class="block px-4 py-2 text-sm text-center text-gray-700 hover:bg-gray-100" role="menuitem" (click)="showTransactionHistory()">Wallet</button>
-              <button class="block px-4 py-2 text-sm text-center text-gray-700 hover:bg-gray-100" role="menuitem" (click)="logout()">Logout</button>
+              <div class="text-center text-sm text-gray-700 hover:bg-gray-100 p-2">
+                <button role="menuitem" (click)="showTransactionHistory()">Wallet</button>
+              </div>
+              <div class="text-center text-sm text-gray-700 hover:bg-gray-100 p-2">
+                <button role="menuitem" (click)="logout()">Logout</button>
+              </div>
             </div>
           </div>
         </div>
