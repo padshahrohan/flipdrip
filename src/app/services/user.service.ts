@@ -27,6 +27,10 @@ export class UserService {
     return this.http.put<Response<any>>(this.url + '/user/getUserNamesForWalletAddresses', body);
   }
 
+  getWalletAddress(sellerId: any) {
+    return this.http.get<Response<string>>(this.url + '/user/getWalletAddress?Id=' + sellerId);
+  }
+
   approveBuyerTokens(sellerId: any, buyerId: any) {
     let body = {
       BuyerId: buyerId,

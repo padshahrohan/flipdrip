@@ -21,7 +21,7 @@ export class ContractService {
 
   walletAddress: Subject<string> = new Subject<string>();
   walletAddress$ = this.walletAddress.asObservable();
-
+  
   async transfer(toAddress: string, amount: string) {
     const contract = new ethers.Contract(environment.contractAddress, FlipKart.abi, this.provider.getSigner());
     const transferred = await contract['transfer'](toAddress, parseEther(amount));
@@ -46,7 +46,6 @@ export class ContractService {
     // Iterate through blocks and fetch transactions
     for (let blockNumber = 0; blockNumber <= latestBlockNumber; blockNumber++) {
       const block = await provider.getBlockWithTransactions(blockNumber);
-      console.log(block.transactions);
       
       // Filter transactions for the specified address
       const transactions = block.transactions

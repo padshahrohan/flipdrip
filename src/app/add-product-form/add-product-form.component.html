@@ -3,25 +3,25 @@
     <form [formGroup]="productForm">
         <div class="mb-4">
             <label for="productName" class="block font-medium mb-1">Product Name:</label>
-            <input type="text" id="productName" name="productName" formControlName="productName"  class="w-full border border-gray-300 rounded px-3 py-2">
+            <input type="text" id="productName" name="productName" formControlName="productName"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-800 sm:text-sm sm:leading-6">
           </div>
       <div class="mb-4">
         <label for="productDescription" class="block font-medium mb-1">Product Description:</label>
-        <input type="text" id="productDescription" name="productDescription" formControlName="productDescription"  class="w-full border border-gray-300 rounded px-3 py-2">
+        <input type="text" id="productDescription" name="productDescription" formControlName="productDescription"  class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-800 sm:text-sm sm:leading-6">
       </div>
       <div class="mb-4">
         <label for="productPrice" class="block font-medium mb-1">Product Price:</label>
-        <input type="number" id="productPrice" name="productPrice" formControlName="productPrice" class="w-full border border-gray-300 rounded px-3 py-2">
+        <input type="number" id="productPrice" name="productPrice" formControlName="productPrice" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-800 sm:text-sm sm:leading-6">
       </div>
       <div class="mb-4">
         <label for="priceInTokens" class="block font-medium mb-1">Product Price In FDs:</label>
-        <input type="number" id="priceInTokens" name="priceInTokens" formControlName="priceInTokens" class="w-full border border-gray-300 rounded px-3 py-2">
+        <input type="number" id="priceInTokens" name="priceInTokens" formControlName="priceInTokens" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-800 sm:text-sm sm:leading-6">
       </div>
       <!-- <div class="mt-4">
         <label for="productImage" class="block font-medium mb-1">Product Images:</label>
         <input type="file" id="productImage" name="productImage" (change)="onImageChange($event)" accept="image/*" multiple>
       </div> -->
-      <button type="submit" [disabled]="productForm.invalid" (click)="submit()" class="mt-2 bg-blue-500 text-white font-semibold py-2 px-4 rounded shadow">Add Product</button>
+      <button type="submit" [disabled]="productForm.invalid" (click)="submit()" class="mt-2 flex w-full justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-800">Add Product</button>
     </form>
   </div>
   
